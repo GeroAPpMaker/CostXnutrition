@@ -1,0 +1,130 @@
+/* client/css/projector.css — projector / big-screen layout */
+
+/* Force large base size so text reads from back of room */
+body.projector-body {
+  font-size: 20px;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.proj-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100dvh;
+  padding: 1.5rem 2rem;
+  gap: 1.5rem;
+}
+
+.proj-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #334155;
+  padding-bottom: 0.75rem;
+}
+.proj-logo { font-size: 1.4rem; font-weight: 800; color: #f8fafc; }
+.proj-logo span { color: #60a5fa; }
+.proj-phase {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+.proj-timer {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #60a5fa;
+  font-variant-numeric: tabular-nums;
+}
+.proj-timer.urgent { color: #f87171; }
+
+.proj-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Lobby: huge code + QR */
+.proj-lobby {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.proj-code {
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: #f8fafc;
+  font-variant-numeric: tabular-nums;
+}
+.proj-join-url { font-size: 1rem; color: #94a3b8; margin-top: -1rem; }
+.proj-join-count { font-size: 1.2rem; color: #94a3b8; }
+.proj-join-count strong { color: #f8fafc; font-size: 1.6rem; }
+
+/* Poll bars */
+.poll-bars { width: 100%; max-width: 700px; }
+.poll-bar-row {
+  display: grid;
+  grid-template-columns: 10rem 1fr 4rem;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.poll-bar-label { font-size: 1rem; font-weight: 600; color: #cbd5e1; text-align: right; }
+.poll-bar-track {
+  height: 2.4rem;
+  background: #1e293b;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.poll-bar-fill {
+  height: 100%;
+  background: #60a5fa;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+.poll-bar-fill.correct-bar { background: #4ade80; }
+.poll-bar-count { font-size: 1rem; font-weight: 700; color: #f8fafc; text-align: right; }
+
+/* Leaderboard projector */
+.proj-leaderboard { width: 100%; max-width: 800px; }
+.proj-lb-row {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr 6rem 6rem 6rem;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #1e293b;
+  font-size: 1rem;
+}
+.proj-lb-row:first-child { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; }
+.proj-lb-rank { font-weight: 900; font-size: 1.3rem; color: #60a5fa; }
+.proj-lb-score { font-weight: 800; font-size: 1.2rem; color: #4ade80; text-align: right; }
+.proj-lb-cost { text-align: right; }
+.proj-lb-cal  { text-align: right; }
+
+/* Hook reveal split */
+.proj-reveal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 900px;
+}
+.proj-reveal-col { display: flex; flex-direction: column; gap: 1rem; }
+.proj-reveal-col h2 { font-size: 1rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; }
+.proj-reveal-q { font-size: 0.9rem; color: #cbd5e1; }
+.proj-reveal-a { font-size: 1.1rem; font-weight: 700; color: #4ade80; }
+
+/* Footer bar */
+.proj-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #1e293b;
+  padding-top: 0.6rem;
+  font-size: 0.75rem;
+  color: #475569;
+}

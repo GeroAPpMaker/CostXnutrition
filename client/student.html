@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CostPlate — Student</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Rendered by student.js -->
+    <div class="join-wrap">
+      <div class="join-logo">Cost<span>Plate</span></div>
+      <div class="card join-card">
+        <h2>Join a session</h2>
+        <form id="join-form" class="join-fields" autocomplete="off">
+          <div class="field">
+            <label for="code">Session code</label>
+            <input class="input" id="code" name="code" maxlength="6"
+                   placeholder="e.g. AB2CD3" autocapitalize="characters" required>
+          </div>
+          <div class="field">
+            <label for="nickname">Your nickname</label>
+            <input class="input" id="nickname" name="nickname" maxlength="30"
+                   placeholder="e.g. Juan" required>
+          </div>
+          <div class="field">
+            <label for="teamName">Team name</label>
+            <input class="input" id="teamName" name="teamName" maxlength="40"
+                   placeholder="e.g. Team Adobo" required>
+          </div>
+          <div id="join-error" class="alert alert-error" style="display:none"></div>
+          <button type="submit" class="btn btn-primary btn-full">Join →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/js/student.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CostPlate — Facilitator</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <style>
+    /* Facilitator-specific layout — full width, sidebar + main */
+    body { background: var(--clr-surface); }
+    .fac-layout {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 100dvh;
+    }
+    .fac-topbar {
+      background: var(--clr-text);
+      color: #fff;
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.6rem 1.25rem;
+      flex-wrap: wrap;
+    }
+    .fac-logo { font-weight: 800; font-size: 1.1rem; }
+    .fac-logo span { color: #60a5fa; }
+    .fac-session-code { font-size: 1.4rem; font-weight: 900; letter-spacing: 0.12em; color: #60a5fa; }
+    .fac-phase-label  { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; }
+    .fac-timer        { font-size: 1.4rem; font-weight: 800; font-variant-numeric: tabular-nums; margin-left: auto; }
+    .fac-online-count { font-size: 0.85rem; color: #94a3b8; }
+
+    .fac-controls {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; padding: 0.75rem 1.25rem;
+      background: #1e293b; border-bottom: 2px solid #334155;
+    }
+
+    .fac-body {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .fac-body { grid-template-columns: 1fr; }
+    }
+
+    .fac-btn {
+      min-height: 36px;
+      padding: 0.3rem 0.9rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #fff;
+    }
+    .fac-btn-next    { background: #3b82d4; }
+    .fac-btn-prev    { background: #475569; }
+    .fac-btn-timer   { background: #16a34a; }
+    .fac-btn-shock   { background: #d97706; }
+    .fac-btn-hard    { background: #7c3aed; }
+    .fac-btn-reveal  { background: #0891b2; }
+    .fac-btn-end     { background: #dc2626; }
+    .fac-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Progress strip */
+    .progress-strip {
+      background: var(--clr-bg);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .progress-strip .progress-bar { flex: 1; }
+    .progress-label { font-size: var(--fs-sm); white-space: nowrap; }
+
+    /* Student table */
+    .student-table-wrap {
+      background: var(--clr-bg);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      overflow: auto;
+    }
+    .student-table {
+      width: 100%; border-collapse: collapse;
+      font-size: var(--fs-sm);
+    }
+    .student-table th, .student-table td {
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--clr-border);
+      white-space: nowrap;
+    }
+    .student-table th {
+      background: var(--clr-surface);
+      font-weight: 700;
+      position: sticky; top: 0;
+      cursor: pointer;
+      user-select: none;
+    }
+    .student-table tr:hover td { background: var(--clr-surface); cursor: pointer; }
+    .dot-online  { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--clr-success); margin-right: 4px; }
+    .dot-offline { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--clr-error);   margin-right: 4px; }
+
+    /* Detail panel (right sidebar) */
+    .detail-panel {
+      background: var(--clr-bg);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      font-size: var(--fs-sm);
+    }
+    .detail-panel h3 { font-size: var(--fs-base); margin-bottom: 0.75rem; border-bottom: 1px solid var(--clr-border); padding-bottom: 0.4rem; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1rem; margin-bottom: 0.75rem; }
+    .detail-label { color: var(--clr-muted); }
+    .detail-value { font-weight: 600; }
+    .note-input { width: 100%; min-height: 80px; resize: vertical; padding: 0.5rem; border: 1px solid var(--clr-border); border-radius: 4px; font: inherit; margin-top: 0.4rem; }
+
+    /* Table filter bar */
+    .table-filters { display: flex; gap: 0.5rem; padding: 0.5rem 0.75rem; background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); flex-wrap: wrap; }
+    .filter-input { height: 32px; padding: 0 0.5rem; border: 1px solid var(--clr-border); border-radius: 4px; font-size: var(--fs-sm); }
+  </style>
+</head>
+<body>
+  <div class="fac-layout">
+    <!-- Top bar -->
+    <header class="fac-topbar">
+      <span class="fac-logo">Cost<span>Plate</span></span>
+      <span>Code: <strong id="fac-code" class="fac-session-code">—</strong></span>
+      <span id="fac-phase" class="fac-phase-label">—</span>
+      <span id="fac-timer" class="fac-timer">—</span>
+      <span id="fac-online" class="fac-online-count">— online</span>
+    </header>
+
+    <!-- Controls -->
+    <div class="fac-controls">
+      <button class="fac-btn fac-btn-prev"  id="btn-prev">◀ Back</button>
+      <button class="fac-btn fac-btn-next"  id="btn-next">Next ▶</button>
+      <button class="fac-btn fac-btn-timer" id="btn-timer">▶ Start timer</button>
+      <button class="fac-btn fac-btn-shock" id="btn-shock" disabled>⚡ Price Shock</button>
+      <button class="fac-btn fac-btn-hard"  id="btn-hard"  disabled>🔒 Hard Mode</button>
+      <button class="fac-btn fac-btn-reveal" id="btn-reveal" disabled>👁 Reveal answer</button>
+      <button class="fac-btn fac-btn-end"   id="btn-end">■ End session</button>
+      <button class="fac-btn" id="btn-download" style="background:#0f766e">⬇ Download CSV</button>
+    </div>
+
+    <!-- Progress strip -->
+    <div style="padding:0 1.25rem;margin-top:0.75rem;">
+      <div class="progress-strip">
+        <span class="progress-label" id="progress-label">—</span>
+        <div class="progress-bar"><div class="progress-bar__fill" id="progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- Body: table + detail -->
+    <div class="fac-body">
+      <div>
+        <!-- Table filters -->
+        <div class="student-table-wrap">
+          <div class="table-filters">
+            <input class="filter-input" id="filter-search" placeholder="Search nickname…">
+            <input class="filter-input" id="filter-team" placeholder="Filter by team…">
+            <select class="filter-input" id="filter-status">
+              <option value="">All</option>
+              <option value="online">Online</option>
+              <option value="offline">Offline</option>
+              <option value="flag">Flagged</option>
+            </select>
+          </div>
+          <table class="student-table" id="student-table">
+            <thead>
+              <tr>
+                <th data-col="status">●</th>
+                <th data-col="nickname">Nickname</th>
+                <th data-col="team">Team</th>
+                <th data-col="bestScore">Score</th>
+                <th data-col="quizScore">Quiz</th>
+                <th data-col="confidence">Conf.</th>
+                <th data-col="subs">Subs</th>
+              </tr>
+            </thead>
+            <tbody id="student-tbody">
+              <tr><td colspan="7" style="text-align:center;color:var(--clr-muted)">No students yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Detail panel -->
+      <aside class="detail-panel" id="detail-panel">
+        <h3>Student detail</h3>
+        <p style="color:var(--clr-muted)">Click a student row to view details.</p>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Login modal (shown before session code is known) -->
+  <div id="fac-login-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.7);
+       display:flex;align-items:center;justify-content:center;z-index:100;">
+    <div class="card" style="max-width:380px;width:100%;margin:1rem;">
+      <h2 style="margin-bottom:1rem;">Facilitator access</h2>
+      <form id="fac-login-form" class="join-fields">
+        <div class="field">
+          <label for="fac-mode">I want to…</label>
+          <select class="input" id="fac-mode">
+            <option value="create">Create a new session</option>
+            <option value="join">Rejoin existing session</option>
+          </select>
+        </div>
+        <div class="field" id="field-code-wrap" style="display:none">
+          <label for="fac-code-input">Session code</label>
+          <input class="input" id="fac-code-input" maxlength="6" autocapitalize="characters" placeholder="AB2CD3">
+        </div>
+        <div class="field">
+          <label for="fac-pin-input">Facilitator PIN</label>
+          <input class="input" id="fac-pin-input" type="password" maxlength="12" placeholder="Set a PIN" required>
+        </div>
+        <div id="fac-login-error" class="alert alert-error" style="display:none"></div>
+        <button type="submit" class="btn btn-primary btn-full">Continue →</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="/js/facilitator.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CostPlate — Projector</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/projector.css">
+</head>
+<body class="projector-body">
+  <div class="proj-layout">
+    <!-- Header bar -->
+    <header class="proj-header">
+      <div class="proj-logo">Cost<span>Plate</span></div>
+      <div id="proj-phase" class="proj-phase">—</div>
+      <div id="proj-timer" class="proj-timer" aria-live="polite">—</div>
+    </header>
+
+    <!-- Main content area (swapped by projector.js per phase) -->
+    <main class="proj-main" id="proj-main">
+      <p style="color:#475569">Waiting for session…</p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="proj-footer">
+      <span id="proj-count">— students online</span>
+      <span>CostPlate</span>
+    </footer>
+  </div>
+  <script type="module" src="/js/projector.js"></script>
+</body>
+</html>

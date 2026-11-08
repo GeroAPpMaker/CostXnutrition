@@ -1,0 +1,23 @@
+{
+  "name": "costplate",
+  "version": "1.0.0",
+  "description": "CostPlate — food cost & nutrition classroom app",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test tests/scoring.test.js tests/session.test.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "fastify": "^4.28.1",
+    "@fastify/static": "^7.0.4",
+    "qrcode": "^1.5.4",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {}
+}

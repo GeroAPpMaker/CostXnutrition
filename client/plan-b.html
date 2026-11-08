@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CostPlate — Plan B (Offline Backup)</title>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { font-size: 11pt; }
+      .page-break { page-break-before: always; }
+    }
+    body {
+      font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+      max-width: 720px; margin: 0 auto; padding: 1.5rem;
+      color: #1f2328; line-height: 1.6;
+    }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #1f2328; padding-bottom: 0.4rem; }
+    h2 { font-size: 1.1rem; margin-top: 1.5rem; }
+    h3 { font-size: 1rem; margin-top: 1rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 0.5rem; }
+    th, td { border: 1px solid #ccc; padding: 0.35rem 0.5rem; text-align: left; }
+    th { background: #f7f8fa; font-weight: 700; }
+    .formula-box { background: #f7f8fa; border: 1px solid #e5e7eb; border-radius: 6px; padding: 0.75rem 1rem; margin: 0.5rem 0; }
+    .formula-box code { font-size: 0.9rem; }
+    .target-box { border: 2px solid #1f2328; border-radius: 6px; padding: 0.75rem 1rem; margin: 0.5rem 0; }
+    .muted { color: #57606a; font-size: 0.85rem; }
+    .print-btn { margin: 1rem 0; padding: 0.5rem 1.5rem; background: #3b82d4; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <div class="no-print">
+    <button class="print-btn" onclick="window.print()">🖨 Print this page</button>
+    <p class="muted">Print and distribute one copy per student if the internet is unavailable.</p>
+  </div>
+
+  <h1>CostPlate — Plan B (Offline Activity)</h1>
+  <p class="muted">Creamy Chicken Pasta | Food Cost &amp; Nutrition Activity | Use this sheet if the app is unavailable.</p>
+
+  <!-- Scenario -->
+  <h2>Your Scenario</h2>
+  <div class="target-box">
+    <p>You run a small café. <strong>Creamy Chicken Pasta</strong> sells for <strong>₱200</strong> per plate.</p>
+    <p>Management wants a food cost of <strong>30% or less</strong>. That means cost per portion must be <strong>₱60.00 or less</strong>.</p>
+    <p>The dietitian wants each portion at:</p>
+    <ul>
+      <li>Calories: <strong>650 kcal or less</strong></li>
+      <li>Sodium: <strong>700 mg or less</strong></li>
+      <li>Protein: <strong>30 g or more</strong></li>
+    </ul>
+    <p>Your goal: edit the recipe to hit all four targets. One batch serves 4 portions.</p>
+  </div>
+
+  <!-- Formulas -->
+  <h2>Formula Card</h2>
+  <div class="formula-box">
+    <p><strong>Ingredient cost</strong> = Quantity (g or ml) × Price (₱ per 100g/ml) ÷ 100</p>
+    <p><strong>Total recipe cost</strong> = Sum of all ingredient costs</p>
+    <p><strong>Cost per portion</strong> = Total recipe cost ÷ 4 (portions)</p>
+    <p><strong>Food cost %</strong> = Cost per portion ÷ Selling price × 100</p>
+    <p><strong>Target selling price</strong> = Cost per portion ÷ Target food cost % (as a decimal)</p>
+    <p><em>Example:</em> Cost per portion = ₱60. Target = 30%. Selling price = ₱60 ÷ 0.30 = ₱200.</p>
+    <p><strong>Calories per portion</strong> = Sum of (Quantity × kcal per 100g/ml) ÷ 4</p>
+  </div>
+
+  <!-- Ingredient data table -->
+  <h2>Ingredient Data (per 100 g or 100 ml)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Ingredient</th>
+        <th>Unit</th>
+        <th>Price (₱)</th>
+        <th>kcal</th>
+        <th>Protein (g)</th>
+        <th>Fat (g)</th>
+        <th>Sodium (mg)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Spaghetti (dry)</td><td>g</td><td>11.00</td><td>350</td><td>12.0</td><td>1.5</td><td>5</td></tr>
+      <tr><td>Chicken breast (raw)</td><td>g</td><td>23.00</td><td>165</td><td>31.0</td><td>3.6</td><td>74</td></tr>
+      <tr><td>Heavy cream</td><td>ml</td><td>50.00</td><td>340</td><td>2.1</td><td>36.0</td><td>38</td></tr>
+      <tr><td>Evaporated milk</td><td>ml</td><td>20.00</td><td>135</td><td>6.8</td><td>7.6</td><td>118</td></tr>
+      <tr><td>Butter (salted)</td><td>g</td><td>45.00</td><td>720</td><td>0.9</td><td>81.0</td><td>576</td></tr>
+      <tr><td>Cheddar cheese</td><td>g</td><td>40.00</td><td>400</td><td>25.0</td><td>33.0</td><td>650</td></tr>
+      <tr><td>Mushrooms</td><td>g</td><td>20.00</td><td>22</td><td>3.1</td><td>0.3</td><td>5</td></tr>
+      <tr><td>Garlic</td><td>g</td><td>20.00</td><td>150</td><td>6.4</td><td>0.5</td><td>17</td></tr>
+      <tr><td>Salt</td><td>g</td><td>2.00</td><td>0</td><td>0</td><td>0</td><td>38,758</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Starting recipe -->
+  <h2>Starting Recipe — Version A (4 portions)</h2>
+  <table>
+    <thead>
+      <tr><th>Ingredient</th><th>Quantity</th><th>Cost</th><th>kcal (batch)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Spaghetti (dry)</td><td>320 g</td><td>₱35.20</td><td>1,120</td></tr>
+      <tr><td>Chicken breast</td><td>400 g</td><td>₱92.00</td><td>660</td></tr>
+      <tr><td>Heavy cream</td><td>200 ml</td><td>₱100.00</td><td>680</td></tr>
+      <tr><td>Butter (salted)</td><td>40 g</td><td>₱18.00</td><td>288</td></tr>
+      <tr><td>Cheddar cheese</td><td>60 g</td><td>₱24.00</td><td>240</td></tr>
+      <tr><td>Garlic</td><td>20 g</td><td>₱4.00</td><td>30</td></tr>
+      <tr><td>Salt</td><td>6 g</td><td>₱0.12</td><td>0</td></tr>
+      <tr><td><strong>Total</strong></td><td>—</td><td><strong>₱273.32</strong></td><td><strong>3,018</strong></td></tr>
+      <tr><td><strong>Per portion</strong></td><td>—</td><td><strong>₱68.33</strong></td><td><strong>~755 kcal</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="muted" style="margin-top:0.25rem">Version A fails cost (₱68.33 &gt; ₱60), calories (755 &gt; 650), and sodium targets.</p>
+
+  <div class="page-break"></div>
+
+  <!-- My Recipe worksheet -->
+  <h2>My Recipe Worksheet</h2>
+  <p class="muted">Name: ________________________ Team: ________________________</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Ingredient</th>
+        <th>Quantity I used</th>
+        <th>Cost<br>(qty × price ÷ 100)</th>
+        <th>kcal (batch)<br>(qty × kcal ÷ 100)</th>
+        <th>Protein (batch)<br>(g)</th>
+        <th>Sodium (batch)<br>(mg)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Spaghetti (dry)</td><td>_____ g</td><td>₱ _____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      <tr><td>Chicken breast</td><td>_____ g</td><td>₱ _____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      <tr><td>Heavy cream</td><td>_____ ml</td><td>₱ _____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      <tr><td>Evaporated milk</td><td>_____ ml</td><td>₱ _____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      <tr><td>Butter (salted)</td><td>_____ g</td><td>₱ _____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      <tr><td>Cheddar cheese</td><td>_____ g</td><td>₱ _____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      <tr><td>Mushrooms</td><td>_____ g</td><td>₱ _____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      <tr><td>Garlic</td><td>_____ g</td><td>₱ _____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      <tr><td>Salt</td><td>_____ g</td><td>₱ _____</td><td>_____</td><td>_____</td><td>_____</td></tr>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td>—</td>
+        <td><strong>₱ _____</strong></td>
+        <td><strong>_____</strong></td>
+        <td><strong>_____</strong></td>
+        <td><strong>_____</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Summary (÷ 4 portions)</h3>
+  <table>
+    <tbody>
+      <tr><td>Cost per portion</td><td>₱ _____</td><td>Target: ≤ ₱60.00</td><td>Met? ☐ Yes ☐ No</td></tr>
+      <tr><td>Food cost %</td><td>_____ %</td><td>Target: ≤ 30%</td><td>Met? ☐ Yes ☐ No</td></tr>
+      <tr><td>Calories per portion</td><td>_____ kcal</td><td>Target: ≤ 650 kcal</td><td>Met? ☐ Yes ☐ No</td></tr>
+      <tr><td>Protein per portion</td><td>_____ g</td><td>Target: ≥ 30 g</td><td>Met? ☐ Yes ☐ No</td></tr>
+      <tr><td>Sodium per portion</td><td>_____ mg</td><td>Target: ≤ 700 mg</td><td>Met? ☐ Yes ☐ No</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Viability Check (recipe must pass all of these to count)</h3>
+  <ul>
+    <li>Spaghetti at least 240 g ☐</li>
+    <li>Chicken at least 240 g ☐</li>
+    <li>Sauce base (cream OR evaporated milk combined) at least 100 ml ☐</li>
+    <li>Salt at least 2 g ☐</li>
+  </ul>
+
+  <h3>My Reflection</h3>
+  <p>One swap I would use in my own kitchen is:</p>
+  <p style="border-bottom:1px solid #ccc;min-height:1.5rem">&nbsp;</p>
+  <p>How confident are you in costing a dish? (circle) &nbsp;&nbsp; 1 &nbsp; 2 &nbsp; 3 &nbsp; 4 &nbsp; 5</p>
+
+  <div class="no-print" style="margin-top:2rem;padding:0.75rem;background:#f7f8fa;border-radius:6px;font-size:0.85rem;color:#57606a">
+    <strong>Facilitator note:</strong> Print enough copies before class. The formula card is on page 1; the worksheet is on page 2.
+    Version B answer: spaghetti 320g, chicken 400g, evap milk 200ml, butter 15g, cheese 30g, mushrooms 150g, garlic 20g, salt 4g → ₱55.01/portion, 585 kcal, 47.4g protein, 598mg sodium.
+  </div>
+
+</body>
+</html>
